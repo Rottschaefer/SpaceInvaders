@@ -16,7 +16,7 @@ def create_button(menu_options):
 
     buttons = len(menu_options)*[None]
 
-    #Criação de uma GameImage para cada botão em menu_optionsseguindo os valores das constantes definidas em constants.py
+    #Criação de uma GameImage para cada botão em menu_options seguindo os valores das constantes definidas em constants.py
     for index in range(len(menu_options)):
 
         button = GameImage("./assets/button.png")
