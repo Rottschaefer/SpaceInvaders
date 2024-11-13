@@ -4,7 +4,7 @@ from PPlay.keyboard import Keyboard
 from PPlay.mouse import Mouse
 import pygame
 import constants
-from menu import create_menu, play, difficulty
+from menu import create_menu, play, handle_menu
 
 pygame.init()
 
@@ -24,44 +24,12 @@ EXIT = 4
 # Estado inicial
 state = MENU
 
-while state != EXIT:
+while True:
 
     bg.draw()
 
-    if state == MENU:
-        menu_choice = create_menu(janela, mouse, ["JOGAR", "DIFICULDADE", "RANKING", "SAIR"])
-        match(menu_choice):
-            case 0:
-                state = PLAYING
-            case 1:
-                state = DIFFICULTY
-            case 2:
-                state = RANKING
-            case 3:
-                state = EXIT
-
-    elif state == PLAYING:
-        play(janela, mouse)
-        state = MENU  # Retorna ao menu após jogar
-
-    elif state == DIFFICULTY:
-        option = ["FÁCIL", "MÉDIO", "DIFÍCIL", "VOLTAR"]
-        difficulty_choice = difficulty(janela, mouse, option)
-
-        if difficulty_choice == 3:  # Se a opção "VOLTAR" for selecionada
-            state = MENU
-
-        if option[3] == 0:
-            state = MENU
-        # state = MENU  # Retorna ao menu após escolher a dificuldade
-
-    elif state == RANKING:
-        # Adicione a lógica do ranking aqui
-        state = MENU  # Retorna ao menu após visualizar o ranking
-
-    janela.update()
+    handle_menu(janela, teclado, mouse, bg)
 
     if teclado.key_pressed("ESC"):
-        state = EXIT
+        janela.close()
 
-janela.close()
