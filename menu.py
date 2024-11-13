@@ -1,51 +1,57 @@
-from PPlay.gameimage import GameImage
+
+from button import create_button
+from utils import get_text_dimensions
+import constants
 from PPlay.keyboard import Keyboard
-import pygame
-from button import draw_button
 
-def create_menu(janela):
+def create_menu(janela, mouse, menu_options):
 
-    button_width = 300
-    button_heigth = 100 
-    button_color = (111, 111, 111)
+    buttons = create_button(menu_options)
 
-    buttons_margin = 150
-    buttons_margin_top = 125
+    for i in range(len(buttons)):
+
+        
+            
+        buttons[i].draw()
+        [text_width, text_height] = get_text_dimensions(menu_options[i], constants.MENU_FONT_SIZE)
+
+        #Por algum motivo a palavra DIFICULDADE estava ficando mal centralizada, então fiz um ajuste só pra que ela ficasse centralizada
+        if(menu_options[i] == "DIFICULDADE"):
+            text_x = buttons[i].x + constants.BUTTON_WIDTH/2 - text_width/2 - 25
+        else:
+            text_x = buttons[i].x + constants.BUTTON_WIDTH/2 - text_width/2 -15
+        text_y = constants.BUTTON_MARGIN_TOP + i * constants.BUTTON_MARGIN + constants.BUTTON_HEIGHT/2 - text_height/2 - 5
+        janela.draw_text(menu_options[i], text_x, text_y, constants.MENU_FONT_SIZE, constants.TEXT_COLOR)
+
+        if mouse.is_over_object(buttons[i]):
+            text_color = (255, 0, 0)
+
+            janela.draw_text(menu_options[i], text_x, text_y, constants.MENU_FONT_SIZE, constants.HOVER_TEXT_COLOR)
+
+            if mouse.is_button_pressed(1):
+                return i
+
+        
+def ranking(janela, mouse, menu_options):
+    while True:
+        create_menu(janela, mouse, menu_options)
+
+def play(janela, mouse):
+    while True:
+                if Keyboard().key_pressed("ESC"):
+                    break
+                janela.update()
+
+def difficulty(janela, mouse, menu_options):
+    return create_menu(janela, mouse, menu_options)
+
+    # if output == 3:
+    #     menu_options[3] = 0
 
 
-    bg = GameImage("./assets/bg.jpeg")
-    menu_options = ["JOGAR", "DIFICULDADE", "RANKING", "SAIR"]
-    text_color = (255, 255, 255)
 
-    button = {
-            "text",
-            "x",
-            "y",
-            "width",
-            "height",
-            "color",
-            "text_color"
-        }
-    buttons = len(menu_options)*[button]
+    
 
-    for i, option in enumerate(menu_options):
-        button = {
-            "text": option,
-            "x": (janela.width - button_width) / 2,
-            "y": buttons_margin_top + i * buttons_margin,
-            "width": button_width,
-            "height": button_heigth,
-            "color": button_color,
-            "text_color": text_color
-        }
 
-        buttons[i] = button
 
-    return bg, buttons
 
-def draw_menu(bg, buttons):
-
-    border_radius = 10
-    bg.draw()
-    for button in buttons:
-        draw_button(pygame.display.get_surface(), button["text"], button["x"], button["y"], button["width"], button["height"], button["color"], button["text_color"], border_radius)
