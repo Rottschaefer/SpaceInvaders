@@ -2,11 +2,8 @@ from PPlay.window import Window
 from PPlay.gameimage import GameImage
 from PPlay.keyboard import Keyboard
 from PPlay.mouse import Mouse
-import pygame
 import constants
 from menu import handle_menu
-
-pygame.init()
 
 janela = Window(constants.WINDOW_WIDTH, constants.WINDOW_HEIGHT)
 teclado = Keyboard()
