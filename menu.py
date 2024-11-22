@@ -1,13 +1,17 @@
 
-from button import create_button
+from button import criar_botoes
 from utils import get_text_dimensions
+from play import play
 import constants
 import pygame
 from PPlay.keyboard import Keyboard
+from PPlay.mouse import Mouse
+
+mouse = Mouse()
 
 def create_menu(janela, mouse, menu_options):
 
-    buttons = create_button(menu_options)
+    buttons = criar_botoes(menu_options)
 
     for i in range(len(buttons)):
 
@@ -31,77 +35,45 @@ def create_menu(janela, mouse, menu_options):
             if mouse.is_button_pressed(1):
                 return i
 
-def handle_menu(janela, teclado, mouse, bg):
-
-    #State vai ser a variável que vai controlar a lógica de qual menu deve ser exibido
-    state = 0
+def handle_menu(janela, bg):
 
     while True:
 
-        bg.draw()
+        condicao = create_menu(janela, mouse, ["START", "DIFICULDADE", "RANKING", "SAIR", "FACIL", "MEDIO", "DIFICIL"])
 
-        MENU = 0
-        PLAYING = 1
-        DIFFICULTY = 2
-        RANKING = 3
-        EXIT = 4
+        if condicao == 0:
+            bg.draw()
+            play(janela, bg)
 
-        if state == MENU:
-            menu_choice = create_menu(janela, mouse, ["JOGAR", "DIFICULDADE", "RANKING", "SAIR"])
+        elif condicao == 1:
+            while True:
 
-            match(menu_choice):
-                case 0:
-                    state = PLAYING
-                case 1:
-                    state = DIFFICULTY
-                case 2:
-                    state = RANKING
-                case 3:
-                    state = EXIT
+                option = ["VOLTAR", "FÁCIL", "MÉDIO", "DIFÍCIL"]
 
-        elif state == PLAYING:
-            play(janela, mouse)
+                menu_choice = create_menu(janela, mouse, option)
 
-        elif state == DIFFICULTY:
-            option = ["VOLTAR", "FÁCIL", "MÉDIO", "DIFÍCIL"]
-
-            menu_choice = create_menu(janela, mouse, option)
-
-            if (menu_choice == 0):
+                if (menu_choice == 0):
                 #É preciso dar um delay aqui pois quando o usuário clica em voltar, o mouse ainda está sobre o botão e ele acaba clicando no botão do menu que é exibido logo em seguida
-                pygame.time.wait(200)
-                state = MENU
+                    pygame.time.wait(200)
+                    break
+               
+                janela.update()
 
-        elif state == RANKING:
-            print("Ranking")
-            #Não faz nada por enquanto
-
-        elif state == EXIT:
-            janela.close()
-        
-        if teclado.key_pressed("ESC"):
+        elif condicao == 3:
             janela.close()
 
         janela.update()
-
         
-def ranking(janela, mouse, menu_options):
-    while True:
-        create_menu(janela, mouse, menu_options)
+# def ranking(janela, mouse, menu_options):
+#     while True:
+#         create_menu(janela, mouse, menu_options)
 
-def play(janela, mouse):
 
-    #Loop vazio que só vai sair quando o usuário pressionar a tecla ESC
-    while True:
-                if Keyboard().key_pressed("ESC"):
-                    break
-                janela.update()
+# def difficulty(janela, mouse, menu_options):
+#     return create_menu(janela, mouse, menu_options)
 
-def difficulty(janela, mouse, menu_options):
-    return create_menu(janela, mouse, menu_options)
-
-    # if output == 3:
-    #     menu_options[3] = 0
+#     # if output == 3:
+#     #     menu_options[3] = 0
 
 
 

@@ -1,7 +1,7 @@
 
 # Dimensões da janela
-WINDOW_WIDTH = 1500
-WINDOW_HEIGHT = 800
+WINDOW_WIDTH = 1000
+WINDOW_HEIGHT = 700
 
 # Dimensões dos botões
 BUTTON_WIDTH = 400 #Largura dos botões
@@ -15,3 +15,7 @@ HOVER_TEXT_COLOR = (255, 0, 0)
 
 #Tamanho da fonte do menu
 MENU_FONT_SIZE = 36
+
+#Tamanho da nave
+NAVE_WIDTH = 151
+NAVE_HEIGTH = 80

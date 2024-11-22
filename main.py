@@ -1,22 +1,20 @@
-from PPlay.window import Window
-from PPlay.gameimage import GameImage
-from PPlay.keyboard import Keyboard
-from PPlay.mouse import Mouse
+from PPlay.window import *
+from PPlay.gameimage import *
+from button import criar_botoes
+from menu import create_menu, handle_menu
 import constants
-from menu import handle_menu
 
+#considerações iniciais
 janela = Window(constants.WINDOW_WIDTH, constants.WINDOW_HEIGHT)
-teclado = Keyboard()
-mouse = Mouse()
-
 bg = GameImage("./assets/bg.jpeg")
+mouse = janela.get_mouse()
+teclado = janela.get_keyboard()
 
+
+# loop principal
 while True:
-
     bg.draw()
 
-    handle_menu(janela, teclado, mouse, bg)
+    handle_menu(janela, bg)
 
-    if teclado.key_pressed("ESC"):
-        janela.close()
-
+    janela.update()
