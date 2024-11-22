@@ -15,3 +15,7 @@ HOVER_TEXT_COLOR = (255, 0, 0)
 
 #Tamanho da fonte do menu
 MENU_FONT_SIZE = 36
+
+#Tamanho da nave
+NAVE_WIDTH = 151
+NAVE_HEIGTH = 80

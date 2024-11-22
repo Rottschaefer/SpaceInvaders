@@ -10,6 +10,7 @@ bg = GameImage("./assets/bg.jpeg")
 mouse = janela.get_mouse()
 teclado = janela.get_keyboard()
 
+
 # loop principal
 while True:
     bg.draw()

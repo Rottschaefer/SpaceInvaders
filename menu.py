@@ -1,6 +1,7 @@
 
 from button import criar_botoes
 from utils import get_text_dimensions
+from play import play
 import constants
 import pygame
 from PPlay.keyboard import Keyboard
@@ -40,11 +41,9 @@ def handle_menu(janela, bg):
 
         condicao = create_menu(janela, mouse, ["START", "DIFICULDADE", "RANKING", "SAIR", "FACIL", "MEDIO", "DIFICIL"])
 
-        print(condicao)
-
         if condicao == 0:
             bg.draw()
-            play(janela, mouse)
+            play(janela, bg)
 
         elif condicao == 1:
             while True:
@@ -64,29 +63,17 @@ def handle_menu(janela, bg):
             janela.close()
 
         janela.update()
-
-
-
-
         
-def ranking(janela, mouse, menu_options):
-    while True:
-        create_menu(janela, mouse, menu_options)
+# def ranking(janela, mouse, menu_options):
+#     while True:
+#         create_menu(janela, mouse, menu_options)
 
-def play(janela, mouse):
 
-    #Loop vazio que só vai sair quando o usuário pressionar a tecla ESC
-    while True:
-        
-        if Keyboard().key_pressed("ESC"):
-            break
-            janela.update()
+# def difficulty(janela, mouse, menu_options):
+#     return create_menu(janela, mouse, menu_options)
 
-def difficulty(janela, mouse, menu_options):
-    return create_menu(janela, mouse, menu_options)
-
-    # if output == 3:
-    #     menu_options[3] = 0
+#     # if output == 3:
+#     #     menu_options[3] = 0
 
 
 
