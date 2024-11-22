@@ -1,7 +1,7 @@
 
 # Dimensões da janela
-WINDOW_WIDTH = 1500
-WINDOW_HEIGHT = 800
+WINDOW_WIDTH = 1000
+WINDOW_HEIGHT = 700
 
 # Dimensões dos botões
 BUTTON_WIDTH = 400 #Largura dos botões

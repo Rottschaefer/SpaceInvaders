@@ -1,17 +1,26 @@
-import pygame
+from PPlay.window import *
+from PPlay.gameimage import *
 import constants
-from PPlay.gameimage import GameImage
 
-def create_button(menu_options):
+# Função para criar os botões
 
-    buttons = len(menu_options)*[None]
-
-    #Criação de uma GameImage para cada botão em menu_options seguindo os valores das constantes definidas em constants.py
-    for index in range(len(menu_options)):
-
-        button = GameImage("./assets/button.png")
-        button.set_position(constants.WINDOW_WIDTH/2 - constants.BUTTON_WIDTH/2, constants.BUTTON_MARGIN_TOP + index * constants.BUTTON_MARGIN)
-
-        buttons[index] = button
-
-    return buttons
+def criar_botoes(menu_options):
+    y = constants.BUTTON_MARGIN_TOP  # Posição inicial para o primeiro botão
+    margin = constants.BUTTON_MARGIN  # Margem entre os botões
+    
+    botoes = []
+    
+    # Lista com os nomes dos botões
+    nomes_botoes = menu_options
+    
+    # Criando os objetos GameImage e atribuindo suas posições
+    for nome in nomes_botoes:
+        botao = GameImage("./assets/button.png")
+        botao.x = constants.WINDOW_WIDTH / 2 - constants.BUTTON_WIDTH / 2
+        botao.y = y
+        botoes.append( botao)
+        
+        # Atualiza a posição y para o próximo botão, somando a margem
+        y += margin
+    
+    return botoes
