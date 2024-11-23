@@ -1,7 +1,11 @@
 
-# Dimensões da janela
-WINDOW_WIDTH = 1000
-WINDOW_HEIGHT = 700
+import pygame
+
+# Dimensões da janela usando pygame
+info = pygame.display.Info()
+WINDOW_WIDTH = info.current_w * 0.7
+WINDOW_HEIGHT = info.current_h * 0.7
+
 
 # Dimensões dos botões
 BUTTON_WIDTH = 400 #Largura dos botões
@@ -17,5 +21,11 @@ HOVER_TEXT_COLOR = (255, 0, 0)
 MENU_FONT_SIZE = 36
 
 #Tamanho da nave
-NAVE_WIDTH = 151
+NAVE_WIDTH = 80
 NAVE_HEIGTH = 80
+
+BULLET_SPEED = 500
+
+shot_delay = 0.5
+
+nave_speed = 500

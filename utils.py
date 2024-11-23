@@ -14,3 +14,11 @@ def get_text_dimensions(text, font_size):
     return text_surface.get_size()
 
 #Criei essa função para facilitar o ato de centralizar o texto no botão
+
+def set_scale(imagem, width, height):
+
+    original_image = pygame.image.load(imagem)
+
+    resized_image = pygame.transform.scale(original_image, (width, height))
+
+    pygame.image.save(resized_image, imagem)
