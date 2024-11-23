@@ -29,3 +29,5 @@ BULLET_SPEED = 500
 shot_delay = 0.5
 
 nave_speed = 500
+
+desired_fps = 100

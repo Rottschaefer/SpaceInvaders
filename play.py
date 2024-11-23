@@ -3,8 +3,11 @@ from PPlay.sprite import Sprite
 from bullet import create_bullet
 import constants
 from utils import set_scale
+from performance import PerformanceMonitor
+
 
 teclado = Keyboard()
+performance_monitor = PerformanceMonitor()
 
 def play(janela, bg):
     nave = Sprite("./assets/nave.png")
@@ -20,6 +23,9 @@ def play(janela, bg):
     last_shot_time = 0
 
     while True:
+
+        performance_monitor.measure_fps(janela) #monitoramento do FPS
+
         bg.draw()
 
         last_shot_time += janela.delta_time() # Contador de tempo para respeitar o delay do tiro

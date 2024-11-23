@@ -6,6 +6,7 @@ import constants
 import pygame
 from PPlay.mouse import Mouse
 
+
 mouse = Mouse()
 
 def create_menu(janela, mouse, menu_options):
@@ -38,6 +39,7 @@ def create_menu(janela, mouse, menu_options):
 def handle_menu(janela, bg):
 
     while True:
+
 
         condicao = create_menu(janela, mouse, ["START", "DIFICULDADE", "RANKING", "SAIR"])
 

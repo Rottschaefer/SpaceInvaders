@@ -10,11 +10,14 @@ bg = GameImage("./assets/bg.jpeg")
 mouse = janela.get_mouse()
 teclado = janela.get_keyboard()
 
+last_time = 0
+
 
 # loop principal
 while True:
     bg.draw()
 
     handle_menu(janela, bg)
+
 
     janela.update()
