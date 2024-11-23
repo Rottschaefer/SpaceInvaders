@@ -4,7 +4,6 @@ from utils import get_text_dimensions
 from play import play
 import constants
 import pygame
-from PPlay.keyboard import Keyboard
 from PPlay.mouse import Mouse
 
 mouse = Mouse()
@@ -34,30 +33,20 @@ def create_menu(janela, mouse, menu_options):
 
             if mouse.is_button_pressed(1):
                 return i
+            
 
 def handle_menu(janela, bg):
 
     while True:
 
-        condicao = create_menu(janela, mouse, ["START", "DIFICULDADE", "RANKING", "SAIR", "FACIL", "MEDIO", "DIFICIL"])
+        condicao = create_menu(janela, mouse, ["START", "DIFICULDADE", "RANKING", "SAIR"])
 
         if condicao == 0:
             bg.draw()
             play(janela, bg)
 
         elif condicao == 1:
-            while True:
-
-                option = ["VOLTAR", "FÁCIL", "MÉDIO", "DIFÍCIL"]
-
-                menu_choice = create_menu(janela, mouse, option)
-
-                if (menu_choice == 0):
-                #É preciso dar um delay aqui pois quando o usuário clica em voltar, o mouse ainda está sobre o botão e ele acaba clicando no botão do menu que é exibido logo em seguida
-                    pygame.time.wait(200)
-                    break
-               
-                janela.update()
+                difficulty(janela, mouse, ["VOLTAR", "FÁCIL", "MÉDIO", "DIFÍCIL"])
 
         elif condicao == 3:
             janela.close()
@@ -69,11 +58,26 @@ def handle_menu(janela, bg):
 #         create_menu(janela, mouse, menu_options)
 
 
-# def difficulty(janela, mouse, menu_options):
-#     return create_menu(janela, mouse, menu_options)
+def difficulty(janela, mouse, menu_options):
 
-#     # if output == 3:
-#     #     menu_options[3] = 0
+    while True:
+
+        clicked = create_menu(janela, mouse, menu_options)
+
+        if (clicked == 0):
+                #É preciso dar um delay aqui pois quando o usuário clica em voltar, o mouse ainda está sobre o botão e ele acaba clicando no botão do menu que é exibido logo em seguida
+                pygame.time.wait(200)
+                break
+
+
+        if(clicked):
+
+            #alteracao das constantes de velocidade pra deixar o jogo mais dificil
+            constants.shot_delay =0.5*clicked
+            constants.nave_speed = 500 - 100*clicked
+        
+        janela.update()
+
 
 
 
