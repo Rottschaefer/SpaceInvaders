@@ -4,6 +4,7 @@ from bullet import create_bullet
 import constants
 from utils import set_scale
 from performance import PerformanceMonitor
+from enemy import Enemy
 
 
 teclado = Keyboard()
@@ -13,6 +14,8 @@ def play(janela, bg):
     nave = Sprite("./assets/nave.png")
     set_scale("./assets/nave.png", constants.NAVE_WIDTH, constants.NAVE_HEIGTH)
     set_scale("./assets/bullet.png", 10, 40)
+
+    enemies = Enemy()
 
 
     nave.x = constants.WINDOW_WIDTH / 2 - constants.NAVE_WIDTH / 2
@@ -27,6 +30,9 @@ def play(janela, bg):
         performance_monitor.measure_fps(janela) #monitoramento do FPS
 
         bg.draw()
+
+        enemies.draw_enemies()
+        enemies.move_enemies(janela)
 
         last_shot_time += janela.delta_time() # Contador de tempo para respeitar o delay do tiro
 
