@@ -32,7 +32,10 @@ def play(janela, bg):
         bg.draw()
 
         enemies.draw_enemies()
-        enemies.move_enemies(janela)
+        collided = enemies.move_enemies(janela, nave.y)
+
+        if(not collided):
+            break
 
         last_shot_time += janela.delta_time() # Contador de tempo para respeitar o delay do tiro
 
