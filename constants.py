@@ -31,3 +31,15 @@ shot_delay = 0.5
 nave_speed = 500
 
 desired_fps = 100
+
+#Dados para o inimigo
+
+ENEMY_ROW_NUMBER = 5
+ENEMY_COLUMN_NUMBER = 5
+ENEMY_WIDTH = 115
+ENEMY_HEIGTH = 90
+ENEMY_DISTANCE = 100
+ENEMY_MARGIN = 50
+ENEMY_MARGIN_TOP_SPEED = 100
+
+enemy_speed = 500

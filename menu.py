@@ -5,9 +5,12 @@ from play import play
 import constants
 import pygame
 from PPlay.mouse import Mouse
+from performance import PerformanceMonitor
 
 
 mouse = Mouse()
+
+performance_monitor = PerformanceMonitor()
 
 def create_menu(janela, mouse, menu_options):
 
@@ -40,15 +43,18 @@ def handle_menu(janela, bg):
 
     while True:
 
+        bg.draw()
+
+        performance_monitor.measure_fps(janela)
 
         condicao = create_menu(janela, mouse, ["START", "DIFICULDADE", "RANKING", "SAIR"])
 
         if condicao == 0:
-            bg.draw()
+            # bg.draw()
             play(janela, bg)
 
         elif condicao == 1:
-                difficulty(janela, mouse, ["VOLTAR", "FÁCIL", "MÉDIO", "DIFÍCIL"])
+            difficulty(janela, mouse, ["VOLTAR", "FÁCIL", "MÉDIO", "DIFÍCIL"])
 
         elif condicao == 3:
             janela.close()
