@@ -27,9 +27,11 @@ def play(janela, bg):
 
     while True:
 
+        bg.draw()
+
+
         performance_monitor.measure_fps(janela) #monitoramento do FPS
 
-        bg.draw()
 
         enemies.draw_enemies()
         collided = enemies.move_enemies(janela, nave.y)
