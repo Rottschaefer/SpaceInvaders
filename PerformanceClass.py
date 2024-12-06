@@ -12,25 +12,23 @@ class PerformanceMonitor():
         self.teclado = basic_setup.teclado
 
 
-    def measure_fps(self, janela):
+    def measure_fps(self):
         self.frames += 1
-        self.time += janela.delta_time()
+        self.time += basic_setup.janela.delta_time()
 
 
         if self.time > 0.5:
             self.fps = self.frames / self.time
-            # print("FPS: ", fps)
             self.frames = 0
             self.time = 0
         
         text = "FPS:" + str(round(self.fps, 2))
-        self.janela.draw_text(text, constants.WINDOW_WIDTH - 200, constants.WINDOW_HEIGHT - 100, 30, (255, 255, 255))
+        basic_setup.janela.draw_text(text, constants.WINDOW_WIDTH - 200, constants.WINDOW_HEIGHT - 100, 30, (255, 255, 255))
 
         
         desired_fps = constants.desired_fps
 
 
         #limita o fps de acordo com o desejado
-        if self.janela.delta_time() < 1.0/desired_fps:
-            # print("FPS maior que o desejado")
-            time.sleep((1.0/desired_fps - self.janela.delta_time()))
+        if basic_setup.janela.delta_time() < 1.0/desired_fps:
+            time.sleep((1.0/desired_fps - basic_setup.janela.delta_time()))

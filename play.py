@@ -3,7 +3,7 @@ from PPlay.sprite import Sprite
 from bullet import create_bullet
 import constants
 from utils import set_scale
-from performance import PerformanceMonitor
+from PerformanceClass import PerformanceMonitor
 from enemy import Enemy
 
 

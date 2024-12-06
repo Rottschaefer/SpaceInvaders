@@ -5,7 +5,7 @@
 import constants
 import pygame
 from PPlay.mouse import Mouse
-from performance import PerformanceMonitor
+from PerformanceClass import PerformanceMonitor
 from MenuClass import Menu
 from BaseClass import basic_setup
 
@@ -45,18 +45,9 @@ menuClass = Menu()
 #                 return i
             
 
-def handle_menu(janela, bg):
+def handle_menu():
 
-    while True:
-
-        basic_setup.bg.draw()
-
-        performance_monitor.measure_fps(janela)
-
-        # condicao = create_menu(janela, mouse, ["START", "DIFICULDADE", "RANKING", "SAIR"], bg)
-        menuClass.create_menu()
-
-        basic_setup.janela.update()
+    menuClass.handle_menu()
 
         # handle_game_flow(janela, bg, menuClass.)
 
