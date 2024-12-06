@@ -1,23 +1,27 @@
 from PPlay.window import *
 from PPlay.gameimage import *
+from BaseClass import basic_setup
 from button import criar_botoes
-from menu import create_menu, handle_menu
+from menu import handle_menu
 import constants
 
 #considerações iniciais
-janela = Window(constants.WINDOW_WIDTH, constants.WINDOW_HEIGHT)
-bg = GameImage("./assets/bg.jpeg")
-mouse = janela.get_mouse()
-teclado = janela.get_keyboard()
+# janela = Window(constants.WINDOW_WIDTH, constants.WINDOW_HEIGHT)
+# bg = GameImage("./assets/bg.jpeg")
+# mouse = janela.get_mouse()
+# teclado = janela.get_keyboard()
+
 
 last_time = 0
 
 
 # loop principal
 while True:
-    bg.draw()
+    basic_setup.bg.draw()
 
-    handle_menu(janela, bg)
+    print(basic_setup.janela)
+
+    handle_menu(basic_setup.janela, basic_setup.bg)
 
 
-    janela.update()
+    basic_setup.janela.update()
