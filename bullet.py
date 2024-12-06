@@ -1,5 +1,4 @@
 # bullet.py
-import pygame
 from PPlay.sprite import Sprite
 
 def create_bullet(x, y):

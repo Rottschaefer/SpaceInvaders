@@ -25,6 +25,8 @@ def play(janela, bg):
 
     last_shot_time = 0
 
+    points = 0
+
     while True:
 
         bg.draw()
@@ -54,19 +56,28 @@ def play(janela, bg):
 
                 bullets.append(bullet)
 
-            
+        for enemy_row in enemies.enemies:
+
+            for enemy in enemy_row:
+                for bullet in bullets:
+                    if enemy and enemy.collided(bullet):
+                        points+=1
+                        enemy_row.remove(enemy)
+                        bullets.remove(bullet)
+                        break
+                        
+                    elif bullet and bullet.y < 0:
+                        bullets.remove(bullet)
 
 
         for bullet in bullets:
-            if(bullet.y < 0):
-                bullets.remove(bullet) #remocao da bala caso ela saia da tela
-            
             bullet.y -= constants.BULLET_SPEED * janela.delta_time() #movimentacao da bala
             bullet.draw() #desenho da bala
         
         
 
         nave.draw()
+        janela.draw_text(f"Pontos: {str(points)}", 50,  constants.WINDOW_HEIGHT - 100, 30, (255,255,255))
 
         if teclado.key_pressed("ESC"):
             break

@@ -19,7 +19,7 @@ class PerformanceMonitor:
             self.time = 0
         
         text = "FPS:" + str(round(self.fps, 2))
-        janela.draw_text(text, 0, 0, 50)
+        janela.draw_text(text, constants.WINDOW_WIDTH - 200, constants.WINDOW_HEIGHT - 100, 30, (255, 255, 255))
 
         
         desired_fps = constants.desired_fps

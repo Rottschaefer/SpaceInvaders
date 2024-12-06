@@ -11,39 +11,55 @@ class Enemy:
         set_scale(enemy_image, constants.ENEMY_WIDTH, constants.ENEMY_HEIGTH)
 
         # Criando uma matriz 2D de sprites (rows x cols)
-        self.enemies = [[None for i in range(constants.ENEMY_ROW_NUMBER)] for j in range(constants.ENEMY_COLUMN_NUMBER)]
-
+        self.enemies = []
         for i in range(constants.ENEMY_ROW_NUMBER):
+            row = []
             for j in range(constants.ENEMY_COLUMN_NUMBER):
                 enemy = Sprite(enemy_image)
-                enemy.set_position(constants.ENEMY_DISTANCE*i + constants.ENEMY_MARGIN, constants.ENEMY_DISTANCE*j + constants.ENEMY_MARGIN)
-                self.enemies[i][j] = enemy
+                enemy.set_position(j * (constants.ENEMY_MARGIN + constants.ENEMY_DISTANCE), 
+                                   i * (constants.ENEMY_MARGIN + constants.ENEMY_DISTANCE))
+                row.append(enemy)
+            self.enemies.append(row)
+        self.enemie_rows = constants.ENEMY_ROW_NUMBER
+        self.enemie_columns = constants.ENEMY_COLUMN_NUMBER
 
         
 
     
     def draw_enemies(self):
         
-        for i in range(constants.ENEMY_ROW_NUMBER):
-            for j in range(constants.ENEMY_COLUMN_NUMBER):
-                self.enemies[i][j].draw()
-                if((self.enemies[constants.ENEMY_ROW_NUMBER - 1][constants.ENEMY_COLUMN_NUMBER - 1].x > constants.WINDOW_WIDTH - constants.ENEMY_WIDTH and constants.enemy_speed > 0) or (self.enemies[0][0].x < 0 and constants.enemy_speed < 0)):
-                    self.enemies[i][j].y += constants.ENEMY_MARGIN_TOP_SPEED         
+        for i in range(self.enemies.__len__()):
+            for j in range(self.enemies[i].__len__()):
+                if(self.enemies[i][j]):
+                    self.enemies[i][j].draw()
+                           
 
     def move_enemies(self, janela, nave_y):
 
         output = 0
 
-        if((self.enemies[constants.ENEMY_ROW_NUMBER - 1][constants.ENEMY_COLUMN_NUMBER - 1].x > constants.WINDOW_WIDTH - constants.ENEMY_WIDTH and constants.enemy_speed > 0) or (self.enemies[0][0].x < 0 and constants.enemy_speed < 0)):
-            constants.enemy_speed = - constants.enemy_speed
-            
-        for i in range(constants.ENEMY_ROW_NUMBER):
-            for j in range(constants.ENEMY_COLUMN_NUMBER):
-                self.enemies[i][j].move_x(constants.enemy_speed*janela.delta_time())
-                if(nave_y < self.enemies[i][j].y + constants.ENEMY_HEIGTH):
-                    output =  0
-                else:
-                    output =  1
+        for i in range(self.enemies.__len__()):
+            for j in range(self.enemies[i].__len__()):
+                if(self.enemies[i][j]):
+                    if((self.enemies[i][j].x > constants.WINDOW_WIDTH - constants.ENEMY_WIDTH and constants.enemy_speed > 0) or (self.enemies[0][0].x < 0 and constants.enemy_speed < 0)):
+                            constants.enemy_speed = - constants.enemy_speed
+                            self.go_down()
+
+
+                    self.enemies[i][j].move_x(constants.enemy_speed*janela.delta_time())
+                    if(nave_y < self.enemies[i][j].y + constants.ENEMY_HEIGTH):
+                        output =  0
+                    else:
+                        output =  1
         return output
+    
+
+    def go_down(self):
+        for i in range(self.enemies.__len__()):
+            for j in range(self.enemies[i].__len__()):
+                if(self.enemies[i][j]):
+                    self.enemies[i][j].move_y(constants.ENEMY_MARGIN_TOP_SPEED)
+
+
 
 
