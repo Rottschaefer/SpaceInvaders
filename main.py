@@ -2,21 +2,23 @@ from PPlay.window import *
 from PPlay.gameimage import *
 from BaseClass import basic_setup
 from MenuClass import Menu
-from button import criar_botoes
-import constants
+from PlayClass import Play
 
-#considerações iniciais
-# janela = Window(constants.WINDOW_WIDTH, constants.WINDOW_HEIGHT)
-# bg = GameImage("./assets/bg.jpeg")
-# mouse = janela.get_mouse()
-# teclado = janela.get_keyboard()
 
 menu = Menu()
+game = Play()
+
+
 
 # loop principal
 while True:
     basic_setup.bg.draw()
 
-    menu.handle_menu()
+    match menu.click_button_index:
+        case(0):
+            game.go_to_game()
+        case(-1):
+            menu.handle_menu()
+
 
     basic_setup.janela.update()

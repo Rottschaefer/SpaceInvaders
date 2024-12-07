@@ -1,7 +1,4 @@
-from PPlay.keyboard import Keyboard
-from PPlay.mouse import Mouse
 from PPlay.gameimage import GameImage
-from BaseClass import BaseClass
 from utils import get_text_dimensions
 import constants
 from BaseClass import basic_setup
