@@ -62,4 +62,4 @@ class Enemy:
 
 
 
-
+enemies = Enemy()
