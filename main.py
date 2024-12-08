@@ -3,10 +3,12 @@ from PPlay.gameimage import *
 from BaseClass import basic_setup
 from MenuClass import Menu
 from PlayClass import Play
+from PerformanceClass import PerformanceMonitor
 
 
 menu = Menu()
 game = Play()
+perfomance_monitor = PerformanceMonitor()
 
 
 
@@ -16,9 +18,12 @@ while True:
 
     match menu.click_button_index:
         case(0):
-            game.go_to_game()
+            game.game()
+            perfomance_monitor.measure_fps()
         case(-1):
-            menu.handle_menu()
+            menu.draw_menu()
+
+
 
 
     basic_setup.janela.update()

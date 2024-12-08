@@ -51,13 +51,11 @@ class Menu():
                 if self.mouse.is_button_pressed(1):
                     self.click_button_index = i
 
-    def handle_menu(self):
-        while True:
-            basic_setup.bg.draw()
+    def draw_menu(self):
 
-            self.create_menu()
+        self.create_menu()
 
-            basic_setup.janela.update()
+        basic_setup.janela.update()
 
-            if self.click_button_index != -1:
-                return self.click_button_index
+        if self.click_button_index != -1:
+            return self.click_button_index

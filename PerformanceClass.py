@@ -7,9 +7,6 @@ class PerformanceMonitor():
         self.time = 0
         self.frames = 0
         self.fps = 1
-        self.janela = basic_setup.janela
-        self.mouse = basic_setup.mouse
-        self.teclado = basic_setup.teclado
 
 
     def measure_fps(self):

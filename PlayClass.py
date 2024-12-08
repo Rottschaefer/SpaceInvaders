@@ -1,9 +1,9 @@
 from BaseClass import basic_setup
 import constants
 from PPlay.sprite import Sprite
-from bullet import bullets_handler
+from BulletClass import bullets_handler
 
-from enemy import enemies
+from EnemyTest import enemies
 
 class Play():
     def __init__(self):
@@ -14,7 +14,7 @@ class Play():
 
 
 
-    def go_to_game(self):
+    def game(self):
         self.last_shot_time += basic_setup.janela.delta_time()
 
 
@@ -47,13 +47,10 @@ class Play():
 
         self.player.draw()
         enemies.draw_enemies()
+        enemies.move_enemies(self.player.y)
         self.move_player()
 
 
-
-
-
-        # bullets_handler.hide_bullet()
 
     def move_player(self):
         if basic_setup.teclado.key_pressed("RIGHT") and self.player.x < constants.WINDOW_WIDTH - constants.NAVE_WIDTH:

@@ -1,4 +1,5 @@
 from PPlay.sprite import Sprite
+from BaseClass import basic_setup
 from utils import set_scale
 import constants
 
@@ -34,7 +35,7 @@ class Enemy:
                     self.enemies[i][j].draw()
                            
 
-    def move_enemies(self, janela, nave_y):
+    def move_enemies(self, player_y):
 
         output = 0
 
@@ -46,8 +47,8 @@ class Enemy:
                             self.go_down()
 
 
-                    self.enemies[i][j].move_x(constants.enemy_speed*janela.delta_time())
-                    if(nave_y < self.enemies[i][j].y + constants.ENEMY_HEIGTH):
+                    self.enemies[i][j].move_x(constants.enemy_speed*basic_setup.janela.delta_time())
+                    if(player_y < self.enemies[i][j].y + constants.ENEMY_HEIGTH):
                         output =  0
                     else:
                         output =  1
