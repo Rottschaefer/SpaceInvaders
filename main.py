@@ -8,7 +8,7 @@ from PerformanceClass import PerformanceMonitor
 
 menu = Menu()
 game = Play()
-perfomance_monitor = PerformanceMonitor()
+perfomance_monitor = PerformanceMonitor() 
 
 
 
@@ -19,6 +19,8 @@ while True:
     match menu.click_button_index:
         case(0):
             game.game()
+            if game.game_over:
+                menu.click_button_index = -1
             perfomance_monitor.measure_fps()
         case(-1):
             menu.draw_menu()
