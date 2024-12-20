@@ -2,6 +2,7 @@ from PPlay.gameimage import GameImage
 from utils import get_text_dimensions
 import constants
 from BaseClass import basic_setup
+import pygame
 
 
 class Menu():
@@ -28,7 +29,13 @@ class Menu():
             # Atualiza a posição y para o próximo botão, somando a margem
             y += margin
     
-    def create_menu(self):
+    def create_menu(self, current_buttons_words=None):
+        if current_buttons_words is not None:
+            self.current_buttons_words = current_buttons_words
+
+        else:
+            self.current_buttons_words = ["START", "DIFICULDADE", "RANKING", "SAIR"]
+        self.current_buttons = [GameImage("./assets/button.png") for i in range(len(self.current_buttons_words))]
 
         self.set_buttons_position()
 
@@ -51,11 +58,34 @@ class Menu():
                 if self.mouse.is_button_pressed(1):
                     self.click_button_index = i
 
-    def draw_menu(self):
+    def draw_menu(self, words=None):
 
-        self.create_menu()
+        self.create_menu(words)
 
         basic_setup.janela.update()
 
         if self.click_button_index != -1:
             return self.click_button_index
+        
+    def draw_ranking(self):
+        ranking = open("pontuacao.txt", "r").readlines()
+
+        ranking = self.sort_ranking(ranking) #precisa melhorar essa ordenacao de ranking aqui, mas esta funcional
+
+        for i in range(5):
+            if i < len(ranking):
+                basic_setup.janela.draw_text(ranking[i].split('\n')[0], 300, 300 + i*50, 40, (255, 255, 255))
+        
+        self.draw_menu(["VOLTAR"])
+        if basic_setup.teclado.key_pressed("ESC") or self.click_button_index == 0:
+            pygame.time.delay(100)
+            self.click_button_index = -1
+
+
+    def sort_ranking(self, ranking):
+        
+        for i in range(len(ranking)):
+            for j in range(i, len(ranking)):
+                if int(ranking[i].split(':')[1].split('-')[0]) < int(ranking[j].split(':')[1].split('-')[0]):
+                    ranking[i], ranking[j] = ranking[j], ranking[i]
+        return ranking

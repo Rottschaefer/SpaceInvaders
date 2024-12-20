@@ -8,21 +8,21 @@ enemy_image = "./assets/enemy.png"
 
 class Enemy:
 
-    def __init__(self):
+    def __init__(self, enemy_rows = constants.ENEMY_ROW_NUMBER, enemy_columns = constants.ENEMY_COLUMN_NUMBER):
         set_scale(enemy_image, constants.ENEMY_WIDTH, constants.ENEMY_HEIGTH)
 
         # Criando uma matriz 2D de sprites (rows x cols)
         self.enemies = []
-        for i in range(constants.ENEMY_ROW_NUMBER):
+        for i in range(enemy_rows):
             row = []
-            for j in range(constants.ENEMY_COLUMN_NUMBER):
+            for j in range(enemy_columns):
                 enemy = Sprite(enemy_image)
                 enemy.set_position(j * (constants.ENEMY_MARGIN + constants.ENEMY_DISTANCE), 
                                    i * (constants.ENEMY_MARGIN + constants.ENEMY_DISTANCE))
                 row.append(enemy)
             self.enemies.append(row)
-        self.enemie_rows = constants.ENEMY_ROW_NUMBER
-        self.enemie_columns = constants.ENEMY_COLUMN_NUMBER
+        self.enemie_rows = enemy_rows
+        self.enemie_columns = enemy_columns
 
         
 
