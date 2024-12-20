@@ -5,22 +5,25 @@ from BulletClass import bullets_handler, enemy_bullets_handler
 
 from EnemyTest import enemies
 import random
+from datetime import datetime
+
 
 class Play():
-    def __init__(self):
+    def __init__(self, points = 0):
         self.player = Sprite("./assets/nave.png")
         self.player.x = constants.WINDOW_WIDTH / 2 - constants.NAVE_WIDTH / 2
         self.player.y = constants.WINDOW_HEIGHT - constants.NAVE_HEIGTH - 10
         self.last_shot_time = 0
         self.enemy_shot_time = 0
         self.enemy_shot_delay = 1
-        self.blink_time = 0
-        self.is_blinking = False
+        # self.blink_time = 0
+        # self.is_blinking = False
 
 
-        self.vidas = 3
-        self.points = 0
+        self.vidas = 1
+        self.points = points
         self.game_over = False
+        self.make_fase_harder = False
 
 
 
@@ -68,7 +71,7 @@ class Play():
                 if self.player.collided(bullet):
                     self.player.x = constants.WINDOW_WIDTH / 2 - constants.NAVE_WIDTH / 2
                     self.vidas -= 1
-                    self.is_blinking = True
+                    # self.is_blinking = True
                     if self.vidas == 0:
                         self.game_over = True
                         break
@@ -96,9 +99,17 @@ class Play():
             self.enemy_shot_time = 0
 
             rows_range = len(enemies.enemies) - 1
+
+            if rows_range < 0:
+                self.make_fase_harder = True
+                return
             i = random.randint(0, rows_range)
 
             columns_range = len(enemies.enemies[i]) - 1
+
+            if columns_range < 0:
+                self.make_fase_harder = True
+                return
 
             j = random.randint(0, columns_range)
 
@@ -108,11 +119,11 @@ class Play():
          
 
         
-        if self.is_blinking:
-            self.blink()
+        # if self.is_blinking:
+        #     self.blink()
         
-        else:
-            self.player.draw()
+        # else:
+        self.player.draw()
         enemies.draw_enemies()
         enemies.move_enemies(self.player.y)
         self.move_player()
@@ -125,16 +136,28 @@ class Play():
         if basic_setup.teclado.key_pressed("LEFT") and self.player.x > 0:
             self.player.move_key_x(constants.nave_speed*basic_setup.janela.delta_time())
 
-    def blink(self):
-        self.blink_time += basic_setup.janela.delta_time()
-        self.player.hide()
-        basic_setup.janela.update()
-        if self.blink_time > 0.5:
-            self.blink_time = 0
-            self.player.unhide()
-            self.is_blinking = False
+    def go_to_another_fase(self, enemies_rows, enemies_columns):
+        self.__init__(self.points)
+        enemies.__init__(enemies_rows, enemies_columns)
+
+    def gravar_pontuacao(self, user_input):
+        arquivo = open("pontuacao.txt", "a")
+        data_hora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        text = user_input + ': ' + str(self.points) + ' - Data: ' + data_hora + '\n'
+        arquivo.write(text)
         
-        basic_setup.janela.update()
+
+    # def blink(self):
+    #     self.blink_time += basic_setup.janela.delta_time()
+    #     self.player.hide()
+    #     basic_setup.janela.update()
+    #     if self.blink_time > 0.5:
+    #         self.blink_time = 0
+    #         self.player.unhide()
+    #         self.is_blinking = False
+        
+    #     basic_setup.janela.update()
 
 
 game = Play
