@@ -11,16 +11,17 @@ from datetime import datetime
 class Play():
     def __init__(self, points = 0):
         self.player = Sprite("./assets/nave.png")
+
         self.player.x = constants.WINDOW_WIDTH / 2 - constants.NAVE_WIDTH / 2
         self.player.y = constants.WINDOW_HEIGHT - constants.NAVE_HEIGTH - 10
         self.last_shot_time = 0
         self.enemy_shot_time = 0
         self.enemy_shot_delay = 1
-        # self.blink_time = 0
-        # self.is_blinking = False
+        self.blink_time = 0
+        self.is_blinking = False
 
 
-        self.vidas = 1
+        self.vidas = 2
         self.points = points
         self.game_over = False
         self.make_fase_harder = False
@@ -68,15 +69,31 @@ class Play():
                     bullet.y = constants.WINDOW_HEIGHT - constants.NAVE_HEIGTH + 20
                     bullet.isActive = False
 
-                if self.player.collided(bullet):
+                if self.player.collided(bullet) and not self.is_blinking:
                     self.player.x = constants.WINDOW_WIDTH / 2 - constants.NAVE_WIDTH / 2
                     self.vidas -= 1
-                    # self.is_blinking = True
+                    self.is_blinking = True
+                    x, y = self.player.x, self.player.y
+                    self.player.__init__("./assets/nave_piscando.png", 4)
+                    self.player.set_total_duration(500)
+                    self.player.x, self.player.y = x, y
+
                     if self.vidas == 0:
                         self.game_over = True
                         break
                     # game_over = True
                     # break
+
+                if self.is_blinking:
+                    self.blink_time += basic_setup.janela.delta_time()
+                    self.player.update()
+
+                    if self.blink_time > 1.0:
+                        self.blink_time = 0
+                        self.is_blinking = False
+                        x, y = self.player.x, self.player.y
+                        self.player.__init__("./assets/nave.png")
+                        self.player.x, self.player.y = x, y
 
             # for i, enemy_row in enumerate(enemies.enemies):
             #     for j, enemy in enumerate(enemy_row):
