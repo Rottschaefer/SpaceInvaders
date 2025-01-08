@@ -51,11 +51,14 @@ class Menu():
             text_y = constants.BUTTON_MARGIN_TOP + i * constants.BUTTON_MARGIN + constants.BUTTON_HEIGHT/2 - text_height/2 - 5
             self.janela.draw_text(self.current_buttons_words[i], text_x, text_y, constants.MENU_FONT_SIZE, constants.TEXT_COLOR)
 
+            
             if self.mouse.is_over_object(self.current_buttons[i]):
 
                 self.janela.draw_text(self.current_buttons_words[i], text_x, text_y, constants.MENU_FONT_SIZE, constants.HOVER_TEXT_COLOR)
 
                 if self.mouse.is_button_pressed(1):
+                    pygame.time.delay(200)
+                    
                     self.click_button_index = i
 
     def draw_menu(self, words=None):
@@ -66,6 +69,13 @@ class Menu():
 
         if self.click_button_index != -1:
             return self.click_button_index
+        
+    def draw_difficulty_menu(self):
+        self.create_menu(["FACIL", "MEDIO", "DIFICIL", "VOLTAR"])
+        
+        if self.click_button_index == 0:
+            return 1
+        
         
     def draw_ranking(self):
         ranking = open("pontuacao.txt", "r").readlines()
