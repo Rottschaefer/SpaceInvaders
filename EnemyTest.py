@@ -8,7 +8,7 @@ enemy_image = "./assets/enemy.png"
 
 class Enemy:
 
-    def __init__(self, enemy_rows = constants.ENEMY_ROW_NUMBER, enemy_columns = constants.ENEMY_COLUMN_NUMBER):
+    def __init__(self, enemy_rows = constants.ENEMY_ROW_NUMBER, enemy_columns = constants.ENEMY_COLUMN_NUMBER, enemy_speed = constants.enemy_speed):
         set_scale(enemy_image, constants.ENEMY_WIDTH, constants.ENEMY_HEIGTH)
 
         # Criando uma matriz 2D de sprites (rows x cols)
@@ -23,6 +23,7 @@ class Enemy:
             self.enemies.append(row)
         self.enemie_rows = enemy_rows
         self.enemie_columns = enemy_columns
+        self.enemy_speed = enemy_speed
 
         
 
@@ -42,12 +43,12 @@ class Enemy:
         for i in range(self.enemies.__len__()):
             for j in range(self.enemies[i].__len__()):
                 if(self.enemies[i][j]):
-                    if((self.enemies[i][j].x > constants.WINDOW_WIDTH - constants.ENEMY_WIDTH and constants.enemy_speed > 0) or (self.enemies[0][0].x < 0 and constants.enemy_speed < 0)):
-                            constants.enemy_speed = - constants.enemy_speed
+                    if((self.enemies[i][j].x > constants.WINDOW_WIDTH - constants.ENEMY_WIDTH and self.enemy_speed > 0) or (self.enemies[0][0].x < 0 and self.enemy_speed < 0)):
+                            self.enemy_speed = - self.enemy_speed
                             self.go_down()
 
 
-                    self.enemies[i][j].move_x(constants.enemy_speed*basic_setup.janela.delta_time())
+                    self.enemies[i][j].move_x(self.enemy_speed*basic_setup.janela.delta_time())
                     if(player_y < self.enemies[i][j].y + constants.ENEMY_HEIGTH):
                         output =  0
                     else:

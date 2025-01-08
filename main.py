@@ -4,6 +4,10 @@ from BaseClass import basic_setup
 from MenuClass import Menu
 from PlayClass import Play
 from PerformanceClass import PerformanceMonitor
+import pygame
+from constants import *
+from EnemyTest import enemies
+
 
 
 enemies_row_number = 1
@@ -40,8 +44,64 @@ while True:
 
             perfomance_monitor.measure_fps()
 
+        case(1):
+            pygame.time.delay(100)
+            menu.click_button_index = -2
+
+            
+
+            while True:
+
+                
+                basic_setup.bg.draw()
+                menu.draw_difficulty_menu()
+
+
+
+                match (menu.click_button_index):
+                    case(0):
+                    
+                        enemy_speed = 150
+                        enemies.__init__(1,1, enemy_speed)
+                        menu.click_button_index = -1
+                        pygame.time.delay(100)
+                        
+                        
+                        break
+                    case(1):
+
+                        enemy_speed = 200
+                        enemies.__init__(3,3,enemy_speed)
+
+                            
+                        
+                        menu.click_button_index = -1
+                        pygame.time.delay(100)
+                        
+
+                        break
+                    case(2):
+                    
+                        enemy_speed = 250
+                        enemies.__init__(5,5, enemy_speed)
+                        menu.click_button_index = -1
+                        pygame.time.delay(100)
+                        
+
+                        break
+                    case(3):
+                        menu.click_button_index = -1
+                        pygame.time.delay(100)
+                        
+                        break
+
+
+                basic_setup.janela.update()
+               
         case(2):
             menu.draw_ranking()
+        case(3):
+            basic_setup.janela.close()
 
         case(-1):
             menu.draw_menu()
