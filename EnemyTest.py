@@ -2,6 +2,8 @@ from PPlay.sprite import Sprite
 from BaseClass import basic_setup
 from utils import set_scale
 import constants
+import random
+from EnemyBoss import EnemyBoss
 
 
 enemy_image = "./assets/enemy.png"
@@ -9,14 +11,22 @@ enemy_image = "./assets/enemy.png"
 class Enemy:
 
     def __init__(self, enemy_rows = constants.ENEMY_ROW_NUMBER, enemy_columns = constants.ENEMY_COLUMN_NUMBER, enemy_speed = constants.enemy_speed):
-        set_scale(enemy_image, constants.ENEMY_WIDTH, constants.ENEMY_HEIGTH)
 
+        self.boss_i, self.boss_j = random.randint(0,enemy_rows-1), random.randint(0,enemy_columns - 1)
+        self.boss_killed = False
+        
+        set_scale(enemy_image, constants.ENEMY_WIDTH, constants.ENEMY_HEIGTH)
+        
         # Criando uma matriz 2D de sprites (rows x cols)
         self.enemies = []
         for i in range(enemy_rows):
             row = []
             for j in range(enemy_columns):
-                enemy = Sprite(enemy_image)
+                if(i == self.boss_i and j == self.boss_j):
+                    enemy = EnemyBoss()
+                    print(type(enemy))
+                else:
+                    enemy = Sprite(enemy_image)
                 enemy.set_position(j * (constants.ENEMY_MARGIN + constants.ENEMY_DISTANCE), 
                                    i * (constants.ENEMY_MARGIN + constants.ENEMY_DISTANCE))
                 row.append(enemy)

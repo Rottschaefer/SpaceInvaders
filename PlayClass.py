@@ -21,7 +21,7 @@ class Play():
         self.is_blinking = False
 
 
-        self.vidas = 2
+        self.vidas = 3
         self.points = points
         self.game_over = False
         self.make_fase_harder = False
@@ -46,18 +46,28 @@ class Play():
                     bullet.y = constants.WINDOW_HEIGHT - constants.NAVE_HEIGTH + 20
                     bullet.isActive = False
 
-            for enemy_row in (enemies.enemies):
-                for enemy in (enemy_row):
+            for i, enemy_row in enumerate(enemies.enemies):
+                for j, enemy in enumerate(enemy_row):
                         
                         if enemy and enemy.collided(bullet):
-                            self.points+=1
-                            enemy_row.remove(enemy)
+
+                            if(i == enemies.boss_i and j == enemies.boss_j and enemies.boss_killed == False):
+                                x, y = enemy.x, enemy.y
+                                enemies.enemies[i][j] = Sprite("./assets/enemy.png")
+                                enemies.enemies[i][j].set_position(x,y)
+                                enemies.boss_killed = True
+                                self.points+=1
+                            else:
+                            
+                                self.points+=1
+                                enemy_row.remove(enemy)
                             if len(enemy_row) == 0:
                                 enemies.enemies.remove(enemy_row)
+                                self.enemy_shot_delay *= 0.9
+                                break
                             bullet.y = constants.WINDOW_HEIGHT - constants.NAVE_HEIGTH + 20
                             bullet.isActive = False
-                            self.enemy_shot_delay *= 0.9
-                            break
+                                
 
         for bullet in (enemy_bullets_handler.bullets):
 
